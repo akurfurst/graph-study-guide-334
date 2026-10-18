@@ -179,6 +179,17 @@ public class Practice {
    * @return true if a person in the extended network works at the specified company, false otherwise
    */
   public static boolean hasExtendedConnectionAtCompany(Professional person, String companyName) {
+    if(person == null) return false;
+    Set<Professional> visited = new HashSet<>();
+    Queue<Professional> q = new LinkedList<>();
+    q.add(person);
+    while(!q.isEmpty()){
+      Professional current = q.remove();
+      if(visited.contains(current)) continue;
+      visited.add(current);
+      if(current.getCompany().equals(companyName)) return true;
+      for(Professional neighbor : current.getConnections()) q.add(neighbor);
+    }
     return false;
   }
 
