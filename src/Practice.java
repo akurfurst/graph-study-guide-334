@@ -154,6 +154,18 @@ public class Practice {
    * @return whether there exists a valid positive path from starting to ending
    */
   public static boolean positivePathExists(Map<Integer, Set<Integer>> graph, int starting, int ending) {
+    if(!graph.containsKey(starting) || !graph.containsKey(ending)) return false;
+    if(starting == ending) return true;
+    Set<Integer> visited = new HashSet<>();
+    Queue<Integer> q = new LinkedList<>();
+    q.add(starting);
+    while(!q.isEmpty()){
+      int current = q.remove();
+      if(visited.contains(current)) continue;
+      if(current < 0) continue;
+      if(current == ending) return true;
+      for(int neighbor : graph.get(current)) q.add(neighbor);
+    }
     return false;
   }
 
