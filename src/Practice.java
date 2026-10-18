@@ -2,6 +2,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.Queue;
 import java.util.Set;
+import java.util.Stack;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 
@@ -62,7 +64,20 @@ public class Practice {
    * @return a sorted list of all reachable vertex values by 
    */
   public static List<Integer> sortedReachable(Vertex<Integer> starting) {
-    return null;
+    if(starting == null) return new ArrayList<Integer>();
+    Set<Vertex<Integer>> visited = new HashSet<>();
+    List<Integer> result = new ArrayList<>();
+    Stack<Vertex<Integer>> stack = new Stack<>();
+    stack.push(starting);
+    while(!stack.isEmpty()){
+      Vertex<Integer> current = stack.pop();
+      if(visited.contains(current)) continue;
+      visited.add(current);
+      result.add(current.data);
+      for(Vertex<Integer> neighbor : current.neighbors) stack.push(neighbor);
+    }
+    result.sort(null);
+    return result;
   }
 
   /**
